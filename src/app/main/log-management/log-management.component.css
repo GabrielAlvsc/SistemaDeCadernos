@@ -1,0 +1,131 @@
+.mat-card {
+    padding: 15px;
+    /* height: 98%; */
+}
+
+.mat-card-title {
+    color: black;
+    font-size: large;
+    width: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.title {
+    font-weight: 400;
+    font-size: x-large;
+}
+
+.mat-form-field {
+    width: 400px;
+}
+
+.date-picker{
+    margin-right: 10px;
+}
+
+.mat-card-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: fit-content;
+    margin-top: 20px;
+    margin-bottom: 25px;
+    max-height: inherit;
+}
+
+.mat-card-content-table {
+    margin: 0px 15px;
+    overflow: auto;
+}
+
+.mat-card-content .mat-card-actions {
+    padding-bottom: 30px;
+}
+
+.mat-card .mat-card-actions {
+    align-self: flex-end;
+}
+
+.mat-cell {
+    padding: 20px;
+}
+
+.headers-align .mat-expansion-panel-header-title,
+.headers-align .mat-expansion-panel-header-description {
+  flex-basis: 0;
+}
+
+.headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
+
+div {
+    height: min-content;
+    overflow: overlay;
+}
+
+.backup-button {
+    background-color: var(--green);
+    color: white;
+    margin: 5px;
+}
+
+.create-user-button {
+    background-color: var(--blue-dark);
+    color: white;
+    margin: 5px;
+}
+
+.button-container {
+    overflow: hidden;
+}
+
+.search-button{
+    background-color: var(--blue-dark);
+    color: whitesmoke;
+}
+
+.searth-container {
+    display: flex;
+    box-sizing: border-box;
+    min-height: 52px;
+    padding: 8px;
+    justify-content: flex-start;
+    align-items: baseline;
+}
+
+.charts-container {
+    margin-bottom: 10px;
+}
+
+.next-prev-buttons {
+    /* background-color: var(--green); */
+    color: var(--green);
+}
+
+.user-selector {
+    background-color: cornflowerblue;
+    width: 20%;
+}
+
+.reset-user-button {
+    background-color: var(--purple);
+    color: white;
+    margin: 10px;
+}
+
+::ng-deep ngx-charts-advanced-pie-chart .item-value {
+    padding: 10px;
+}
+
+::ng-deep ngx-charts-advanced-pie-chart .total-label{
+    padding: 10px;
+} 
+
+::ng-deep ngx-charts-advanced-pie-chart .advanced-pie-legend .legend-items-container .legend-items {
+    overflow: hidden;
+}

@@ -1,0 +1,76 @@
+<mat-card>
+  <div class="container_div" #scrollContainer (scroll)="onScroll()">
+    <mat-card-header class="mat-card-title">
+      <h1 class="title">Equipamentos</h1>
+    </mat-card-header>
+
+    <mat-card-content class="mat-card-content">
+      <mat-form-field class="form-field">
+        <input #input style="padding-left: 15px;" matInput (keyup)="shareService.applyFilter($event, dataSource, route)" placeholder="Filtro" placeholder="Ex. Roteador">
+      </mat-form-field>
+      <mat-card-actions class="mat-card-actions">
+        <button mat-mini-fab color="primary" class="button-create" (click)="goto_create()"
+        title="Adicionar equipamento">
+          <mat-icon>add</mat-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card-content>
+
+    <mat-card-content class="mat-card-content-table">
+      <table mat-table [dataSource]="dataSource" matSort (matSortChange)="shareService.sortData($event, originalData, dataSource)" class="mat-elevation-z2">
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Equipamento</th>
+          <td (click)="navigateToDeviceBooks(element.id)" mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="vendor">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Fabricante</th>
+          <td (click)="navigateToDeviceBooks(element.id)" mat-cell *matCellDef="let element"> {{element.vendor}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="sap">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Código SAP</th>
+          <td style="color: blue;" (click)="copyUrl(element.sap)" mat-cell *matCellDef="let element"> {{element.sap}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="price">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Valor de referência</th>
+          <td (click)="navigateToDeviceBooks(element.id)" mat-cell *matCellDef="let element"> {{element.price | currency}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="endofsales">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>End of Sales</th>
+          <td (click)="navigateToDeviceBooks(element.id)" mat-cell *matCellDef="let element"> {{element.endofsales}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="button">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Editar</th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-button class="button" color="primary" (click)="navigateToEdit(element.id)"
+            title="Editar equipamento">
+              <mat-icon>edit</mat-icon>
+            </button>
+
+            <button mat-button class="button" style="color: var(--green);" (click)="navigateToDeviceBooks(element.id)"
+            title="Cadernos associados">
+              <mat-icon>book</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr style="cursor: pointer;" 
+            mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="4">Nenhum dado encontrado</td>
+        </tr>
+      </table>
+    </mat-card-content>
+    <div class="card-paginator">
+      <mat-paginator class="paginator" [pageSizeOptions]="[10, 25, 50, 100]" aria-label="Selecione a página de equipamentos">
+      </mat-paginator>
+    </div>
+  </div>
+</mat-card>

@@ -1,0 +1,20 @@
+.container {
+    min-height: 1vh;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    background-color: var(--portal-green);
+}
+
+.content {
+    flex: 1;
+    font-size: x-small;
+    margin-right: 20px;
+    background-color: var(--portal-green);
+}
+
+h4 {
+    font-size: x-small;
+}
+  
+  

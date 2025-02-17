@@ -1,0 +1,147 @@
+<mat-card>
+    <div class="container_div" #scrollContainer (scroll)="onScroll()">
+        <mat-card-content>
+            <div class="main-header">
+                <mat-card-header>
+                    <h1> <a [routerLink]="['/models']">Modelos de Caderno</a> > {{model}}</h1>
+                    <button mat-flat-button (click)="goBack()" title="Voltar">
+                        <mat-icon>keyboard_backspace</mat-icon>
+                    </button>
+                </mat-card-header>
+                <div class="finish-button">
+                    <button mat-raised-button class="mat-button"
+                    (click)="createPDF()" 
+                    style="background-color: var(--purple); color: white;">
+                        Gerar PDF
+                    </button>
+
+                    <button mat-raised-button class="mat-button" 
+                    style="background-color: var(--green-light); color: white;" (click)="goToFinish()">
+                        {{button}}
+                    </button>
+                    <button *ngIf="!concluded" mat-raised-button class="mat-button"
+                    style="background-color: var(--blue); color: white;" (click)="goToCopy()">
+                        Copiar Item
+                    </button>
+                    <button mat-raised-button class="mat-button"
+                    style="background-color: var(--orange); color: white;" (click)="goToEdit()">
+                        Editar nome do Caderno
+                    </button>
+                </div>
+            </div>
+            <mat-card-content>
+                <!-- Formatar -->
+                <h3>Versão: {{versionDesc}}</h3>
+                <h3>Categoria: {{category}}</h3>
+            </mat-card-content>
+        </mat-card-content>
+
+        <mat-card-content>
+            <mat-card-content class="mat-card-content">
+                <mat-card-header>
+                    <h2>Características</h2>
+                </mat-card-header>
+                <mat-card-actions class="mat-card-actions">
+                    <button mat-mini-fab color="primary" class="button-create" (click)="goToCreate()" *ngIf="!concluded" title="Adicionar característica">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                </mat-card-actions>
+            </mat-card-content>
+            <mat-card-content>
+                <mat-card-actions class="mat-card-actions-table">
+                    <table mat-table [dataSource]="featuresDataSource" matSort class="mat-elevation-z2">
+
+                        <ng-container matColumnDef="features.name">
+                            <th mat-header-cell *matHeaderCellDef>Titulo</th>
+                            <td mat-cell *matCellDef="let element; let i = index">{{i + 1}}. {{element.name}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="features.is_variable">
+                            <th mat-header-cell *matHeaderCellDef>Preenchivel durante os testes</th>
+                            <td mat-cell *matCellDef="let element"> {{element.is_variable?'Sim':'Não'}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="button">
+                            <th mat-header-cell *matHeaderCellDef>Ordenar</th>
+                            <td mat-cell *matCellDef="let element; let i = index">
+                                <button (click)="setOrder(i,'up','feature')" mat-button class="button" color="accent" [disabled]="concluded" title="Mover para cima">
+                                    <mat-icon>keyboard_arrow_up</mat-icon>
+                                </button>
+
+                                <button (click)="setOrder(i,'down','feature')" mat-button class="button" color="accent" [disabled]="concluded" title="Mover para baixo">
+                                    <mat-icon>keyboard_arrow_down</mat-icon>
+                                </button>
+
+                                <button *ngIf="!concluded" mat-button class="button" color="primary" 
+                                    (click)="goToEditFeatures(element.id)" title="Editar característica">
+                                    <mat-icon>edit</mat-icon>
+                                </button>
+                                <button *ngIf="concluded" mat-button class="button" color="primary" (click)="goToEditFeatures(element.id)" title="Visualizar característica">
+                                    <mat-icon>remove_red_eye</mat-icon>
+                                </button>
+                            </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="featuresColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: featuresColumns;"></tr>
+                    </table>
+                </mat-card-actions>
+
+                <div class="card-paginator">
+                </div>
+            </mat-card-content>
+
+            <mat-card-content class="mat-card-content">
+                <mat-card-header>
+                    <h2>Itens</h2>
+                </mat-card-header>
+                <mat-card-actions class="mat-card-actions">
+                    <button mat-mini-fab color="primary" class="button-create" (click)="goToCreate('items')" *ngIf="!concluded" title="Adicionar item de teste">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                </mat-card-actions>
+            </mat-card-content>
+            <mat-card-content>
+                <mat-card-actions class="mat-card-actions-table">
+                    <table mat-table [dataSource]="itemDataSource" matSort class="mat-elevation-z2">
+
+                        <ng-container matColumnDef="items.title">
+                            <th mat-header-cell *matHeaderCellDef>Titulo</th>
+                            <td mat-cell *matCellDef="let element; let i = index">{{element.fullorder}}. {{element.title}}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="items.fillable">
+                            <th mat-header-cell *matHeaderCellDef>Preenchível</th>
+                            <td mat-cell *matCellDef="let element"> {{element.fillable?'Sim':'Não'}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="button">
+                            <th mat-header-cell *matHeaderCellDef>Ordenar</th>
+                            <td mat-cell *matCellDef="let element; let i = index">
+                                <button (click)="setOrder(i,'up','item')" mat-button class="button" color="accent" [disabled]="concluded" title="Mover para cima">
+                                    <mat-icon>keyboard_arrow_up</mat-icon>
+                                </button>
+
+                                <button (click)="setOrder(i,'down','item')" mat-button class="button" color="accent" [disabled]="concluded" title="Mover para baixo">
+                                    <mat-icon>keyboard_arrow_down</mat-icon>
+                                </button>
+
+                                <button *ngIf="!concluded" mat-button class="button" color="primary" 
+                                    (click)="goToEditItens(element.id)" title="Editar item">
+                                    <mat-icon>edit</mat-icon>
+                                </button>
+
+                                <button *ngIf="concluded" mat-button class="button" color="primary" (click)="goToEditItens(element.id)" title="Visualizar item">
+                                    <mat-icon>remove_red_eye</mat-icon>
+                                </button>
+                            </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="itemsColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: itemsColumns;"></tr>
+                    </table>
+                </mat-card-actions>
+            </mat-card-content>
+        </mat-card-content>
+    </div>
+</mat-card>

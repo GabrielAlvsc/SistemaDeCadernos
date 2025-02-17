@@ -1,0 +1,46 @@
+.mat-card {
+    padding: 15px;
+}
+
+.mat-card-title {
+    display: flex;
+    justify-content: space-between;
+}
+
+.title {
+    font-weight: 400;
+}
+
+.mat-form-field {
+    width: 400px;
+    margin-left: 14px;
+    margin-top: 20px;
+}
+
+.mat-card-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 80px;
+    margin-top: 20px;
+    margin-bottom: 25px;
+}
+
+.mat-card-content-table {
+    margin: 0px 15px;
+    overflow: auto;
+}
+
+.mat-cell {
+    padding: 20px;
+}
+
+.mat-card-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+button {
+    width: 95px;
+}

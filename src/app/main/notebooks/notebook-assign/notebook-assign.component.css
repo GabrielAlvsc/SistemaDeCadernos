@@ -1,0 +1,57 @@
+.mat-button {
+    margin-right: 1cqw;
+    width: 100px;
+}
+
+mat-card-title {
+    color: black;
+    font-size: large;
+    width: auto;
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.container {
+    display: flex;
+    width: 100%;
+}
+
+.mat-card-actions {
+    margin-bottom: 15px;
+}
+
+mat-card-content {
+    display: flex;
+    flex-direction: column;
+}
+
+mat-card-content mat-form-field {
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.dialog-container {
+    display: flex;
+    align-items: baseline;
+    width: 100%;
+}
+  
+.dialog-button {
+    flex: 0 0 auto;
+
+    /* margin-right: 10px;  */
+}
+  
+.dialog-select-container {
+    flex: 1; 
+}
+
+.dialog-select {
+    width: 100%;
+}
+  

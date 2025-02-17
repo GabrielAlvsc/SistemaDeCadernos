@@ -1,0 +1,102 @@
+.button{
+    margin-left: 10px;
+    margin-bottom: 10px;
+    width: 100px;
+}
+
+.button-container-horizontal {
+    display: flex;
+    flex-direction: row;
+    align-self: flex-end;
+}
+
+.form{
+    min-width: 50%;
+    max-width: 100%;
+    width: 100%;
+  }
+
+.form-field {
+    margin-left: 20px;
+}
+
+mat-card-header {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+.mat-card-title {
+    color: black;
+    font-size: large;
+    width: auto;
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.mat-card-content {
+    display: flex;
+    width: 100vh;  
+}
+
+.container{
+    display: flex;
+    width: 100%;
+    overflow: auto;
+    max-height: 84vh;
+}
+
+.mat-card-actions {
+    margin-right: 13px;
+    margin-bottom: 15px;
+    height: 50px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+mat-card-content mat-form-field {
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+.file-input {
+    display: none;
+}
+
+.image-class {
+    margin: 30px;
+    padding: 0px;
+    height: fit-content;
+    width: fit-content;   
+}
+
+.image-container:hover .tooltip {
+    opacity: 0.8;
+    visibility: visible;
+}
+
+.image-container {
+    position: relative;
+    display: block;
+    text-align: center;
+}
+
+img {
+    width: 300px;
+    height: fit-content;
+    max-height: 500px;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+}

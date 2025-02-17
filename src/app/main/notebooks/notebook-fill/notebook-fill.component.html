@@ -1,0 +1,189 @@
+<mat-card>
+    <!-- Titulo -->
+    <mat-card-title>
+        <h1>
+            <a [routerLink]="['/' + params[4]]" class="title-link">
+                {{title}}
+            </a> > 
+            <a [routerLink]="['/' + params[4] + '/' + bookId]" class="title-link">
+                {{modelName}}
+            </a> >
+            {{resourceName}}
+        </h1>
+    </mat-card-title>
+
+    <div *ngIf="this.params[6] == 'features'" class="field-feature">
+        <mat-card-content>
+            <mat-form-field class="form-field">
+                <mat-label>Resposta</mat-label>
+                <input [disabled]="disabled" [(ngModel)]="response" matInput type="text">
+            </mat-form-field>
+            <mat-card-footer>{{comment}}</mat-card-footer>
+        </mat-card-content>
+    </div>
+
+    <div *ngIf="this.params[6] == 'item'">
+        <h3 *ngIf="mandatory == true">Mandatório</h3>
+        <!-- Load do HTML -->
+        <div class="load-tags">
+            <mat-card-content>
+                <div [innerHTML]="trustedDescription"></div>
+            </mat-card-content>
+        </div>
+
+        <!-- Listagem dos Campos -->
+        <mat-card-content>
+            <mat-card>
+                <mat-card-content class="cards-container" *ngFor="let element of TypeImageFields; let j = index">
+
+                    <mat-card tyle="display: content; align-items: flex-start;"
+                        (paste)="shareService.onPaste($event, TypeImageFields[j].response_id, TypeImageFields, 'imagesResponseField')">
+                        <div style = "display: flex; align-content: stretch; align-items: center">
+                            <h3 class="title-image">{{TypeImageFields[j].title_field}}</h3>
+                            <input type="file" class="file-input"
+                                (change)="shareService.onFileSelected($event, TypeImageFields[j].response_id, TypeImageFields, 'imagesResponseField')"
+                                name="image" #fileUpload accept=".jpg, .png, image/*, .pdf, .doc" multiple>
+                            <button mat-icon-button color="primary" class="upload-btn" (click)="fileUpload.click()"
+                                [disabled]="disabled" title="Anexar imagem">
+                                <mat-icon>attach_file</mat-icon>
+                            </button>
+                        </div>
+
+                        <mat-card-content style="margin-left: 0; flex-wrap: wrap; display: flex;">
+                            <div *ngFor="let element of TypeImageFields[j].images; let i = index" class="card-images">
+                                <!-- {{element.id}} -->
+                                <mat-card-content class="card-content-image">
+                                    <mat-card-title>
+                                        <h3>{{element.name}}</h3>
+                                    </mat-card-title>
+                                    <div class="image-container">
+                                        <img mat-card-sm-image src="{{element.path}}">
+                                    </div>
+                                    <mat-card-actions class="card-actions-image">
+                                        <!-- {{TypeImageFields[j].response_id}} -->
+                                        <button mat-icon-button style="color: var(--yellow)"
+                                            *ngIf="element.otherResponseFields.length > 0 && revisionMode"
+                                            (click)="openAlert(element.otherResponseFields)">
+                                            <mat-icon>warning</mat-icon>
+                                        </button>
+                                        <button mat-icon-button color="warn" [disabled]="disabled"
+                                            (click)="shareService.deleteImage(element.id, TypeImageFields[j].response_id, TypeImageFields)">
+                                            <mat-icon>delete</mat-icon>
+                                        </button>
+                                    </mat-card-actions>
+                                </mat-card-content>
+                            </div>
+                        </mat-card-content>      
+                    </mat-card>
+
+                </mat-card-content>
+
+                <!-- Resto dos campos -->
+                <span *ngFor="let field of fields; let i = index">
+                    <div class="flex-card-row">
+                        <div class="flex-card-column">
+                            <h3 *ngIf="fields[i].type_field_id != 3"> {{field.title_field}}</h3>
+                            <div *ngIf="fields[i].type_field_id == 1">
+                                <mat-form-field class="form-field">
+                                    <mat-label>Valor</mat-label>
+                                    <input [disabled]="disabled" [(ngModel)]="response_Fields[i].response"
+                                        (ngModelChange)="fieldChange(i,$event)" matInput type="text">
+                                </mat-form-field>
+                            </div>
+                            <div *ngIf="fields[i].type_field_id == 2">
+                                <app-editor [value]="response_Fields[i].response"
+                                    (editordoc)="response_Fields[i].response = $event">
+                                </app-editor>
+                            </div>
+                            <div *ngIf="fields[i].type_field_id == 4">
+                                <mat-form-field class="form-field">
+                                    <mat-label>Script</mat-label>
+                                    <textarea [disabled]="disabled" matInput
+                                        [(ngModel)]="response_Fields[i].response"></textarea>
+                                </mat-form-field>
+                            </div>
+                            <div *ngIf="fields[i].type_field_id == 5">
+                                <mat-form-field class="form-field">
+                                    <mat-label>Resposta</mat-label>
+                                    <input [disabled]="disabled" [(ngModel)]="response_Fields[i].response"
+                                        (ngModelChange)="fieldChange(i,$event)" matInput type="text">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </span>
+            </mat-card>
+        </mat-card-content>
+
+        <mat-card-content>
+            <mat-card>
+                <h2> Observação </h2>
+                <mat-form-field class="form-field">
+                    <mat-label></mat-label>
+                    <input [disabled]="disabled" [(ngModel)]="comment" matInput type="text">
+                </mat-form-field>
+            </mat-card>
+        </mat-card-content>
+    </div>
+
+    <div>
+        <mat-card-content *ngIf="show_corretion">
+            <mat-card *ngIf="pending_adjustments != 0 || revisionMode">
+                <h2> Correções </h2>
+                <div style="display: flex; align-items: center;" *ngFor="let element of corrections; let i = index">
+                    <mat-form-field *ngIf="!this.displayStyle[i].ajusted || revisionMode"
+                        [style.background-color]="this.displayStyle[i].color" class="form-field"
+                        style="border-radius: 5px;">
+                        <mat-label></mat-label>
+                        <input [disabled]="true" [value]="corrections[i].revision" matInput type="text"
+                            style="color: black;">
+                    </mat-form-field>
+
+                    <button mat-button *ngIf="revisionMode && this.displayStyle[i].ajusted == false"
+                        [disabled]="disabled" (click)="correctionPatch(corrections[i].id, i)" style="color: white;"
+                        [style.background-color]="confirm_btn_color">Corrigido
+                    </button>
+                </div>
+            </mat-card>
+        </mat-card-content>
+    </div>
+
+    <div class="action-button">
+        <mat-card-actions align="end">
+            <button mat-raised-button class="mat-button" (click)="goBack()" style="color: black;">Voltar</button>
+
+            <div *ngIf="!viewScreen">
+                <div *ngIf="revisionMode">
+                    <button [disabled]="disabled || pending_adjustments != 0" mat-raised-button disabled
+                        class="mat-button" 
+                        (click)="patchSelector('Aprovado')" style="color: white;"
+                        [style.background-color]="approve_btn_color">
+                        Aprovar
+                    </button>
+
+                    <button [disabled]="disabled" mat-raised-button disabled class="mat-button" 
+                        (click)="openDialog()"
+                        style="color: white;" [style.background-color]="sendback_btn_color">
+                        Retornar Teste
+                    </button>
+
+                    <button *ngIf="targetObject == 'item'" [disabled]="disabled || pending_adjustments != 0"
+                        mat-raised-button disabled class="mat-button" 
+                        (click)="patchSelector('Reprovado')"
+                        style="color: white;" [style.background-color]="reprove_btn_color">
+                        Reprovar
+                    </button>
+                </div>
+                <div *ngIf="!revisionMode">
+                    <button [disabled]="disabled" mat-raised-button class="mat-button"
+                        (click)="patchSelector('Salvo')" style="color: white;"
+                        [style.background-color]="confirm_btn_color">Salvar</button>
+                    <button [disabled]="disabled" mat-raised-button class="mat-button" 
+                        (click)="patchSelector('Em Revisão')"
+                        style="color: white;" [style.background-color]="revision_btn_color">Enviar
+                        para revisão</button>
+                </div>
+            </div>
+        </mat-card-actions>
+    </div>
+</mat-card>

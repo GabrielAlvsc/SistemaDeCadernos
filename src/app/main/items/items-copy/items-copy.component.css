@@ -1,0 +1,28 @@
+table {
+    width: 100%;
+  }
+  
+.mat-card { 
+    padding: 0px 30px;
+}
+
+.mat-card-actions-buttons {
+  padding-right: 0px;
+  padding-top: 15px;
+  padding-bottom: 30px;
+}
+
+.mat-card-header-title {
+  padding-left: 0px;
+  padding-top: 30px;
+}
+
+.mat-card-content-table {
+  padding: 0;
+  overflow: auto;
+}
+
+.mat-button{
+  width: 100px;
+  margin-left: 10px;
+}

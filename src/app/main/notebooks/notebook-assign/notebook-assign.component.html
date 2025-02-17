@@ -1,0 +1,93 @@
+<mat-card class="container">
+    <mat-card-header>
+        <mat-card-title>
+            <h1>{{title}}</h1>
+        </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+        <form action="" [formGroup]="notebookForm">
+            <div class="dialog-container">
+                <button [disabled]="buttonDisabled" class="dialog-button" mat-icon-button (click)="openSelectModel()">
+                    <mat-icon>search</mat-icon>
+                </button>
+                <mat-form-field class="dialog-select-container">
+                    <mat-label>Modelo</mat-label>
+                    <mat-select formControlName="model">
+                        <mat-option *ngFor="let items of models" [value]="items.id">
+                            {{items.title}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="dialog-container">
+                <button [disabled]="buttonDisabled" class="dialog-button" mat-icon-button (click)="openSelectEquipament()">
+                    <mat-icon>search</mat-icon>
+                </button>
+                <mat-form-field class="dialog-select-container">
+                  <mat-label>Equipamento</mat-label>
+                  <mat-select class="dialog-select" formControlName="equipment">
+                    <mat-option *ngFor="let items of equipments" [value]="items.id">
+                      {{items.name}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+            </div>
+
+            <mat-form-field>
+                <mat-label>SGD</mat-label>
+                <input matInput formControlName="SGD">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Usuário Responsável</mat-label>
+                <mat-select formControlName="respUser">
+                    <ng-container *ngFor="let item of users">
+                        <ng-container *ngIf="item.profile === 'cdt'">
+                            <mat-option [value]="item.id">
+                                {{item.name}}
+                            </mat-option>
+                        </ng-container>
+                    </ng-container>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Usuário Executor</mat-label>
+                <mat-select formControlName="execUser">
+                    <mat-option *ngFor="let items of users" [value]="items.id">
+                        {{items.name}} - {{items.profile}} 
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Data de Início</mat-label>
+                <input matInput placeholder="DD/MM/YYYY" [min]="minDate" [matDatepicker]="d1"
+                    formControlName="startDate">
+                <mat-datepicker-toggle matIconSuffix [for]="d1"></mat-datepicker-toggle>
+                <mat-datepicker #d1 startView="year"></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Data de Fim</mat-label>
+                <input matInput placeholder="DD/MM/YYYY" [min]="minDate" [matDatepicker]="d2" 
+                    formControlName="endDate">
+                <mat-datepicker-toggle matIconSuffix [for]="d2"></mat-datepicker-toggle>
+                <mat-datepicker #d2 startView="year"></mat-datepicker>
+                <mat-error *ngIf="notebookForm.get('endDate')?.hasError('errorDate')">
+                    A Data de Fim não pode ser igual ou menor que a Data de Início
+                </mat-error>
+            </mat-form-field>
+
+            <mat-card-actions class="mat-card-actions" align="end">
+
+                <button mat-raised-button class="mat-button" type="button" (click)="goBack()" style="color: black;">
+                    Voltar
+                </button>
+
+                <button *ngIf="!disabled" mat-raised-button class="mat-button" type="submit" (click)="request()"
+                    style="background-color: var(--green-light); color: white;">
+                    {{button}}
+                </button>
+            </mat-card-actions>
+        </form>
+    </mat-card-content>
+</mat-card>

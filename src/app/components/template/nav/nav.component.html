@@ -1,0 +1,18 @@
+<app-spinner></app-spinner>
+<mat-sidenav-container class="container">
+    <mat-sidenav [opened]="sidenavState" class="sidenav" mode="side" fixedInViewport="true">
+        <mat-nav-list class="nav-list">
+
+            <a *ngFor="let itens of menu" mat-list-item routerLink='{{itens.rota}}'>
+                <i class="material-icons icons">{{itens.icone}}
+                </i>
+                <a class="label-icons">{{itens.titulo}}</a>
+            </a>
+        </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content class="content">
+        <!-- Espaço para carregar o conteúdo de acordo com a url do site -->
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>

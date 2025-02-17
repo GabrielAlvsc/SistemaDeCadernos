@@ -1,0 +1,133 @@
+<mat-card *ngIf="isDevUser" class="table-container mat-elevation-z2">
+    <mat-card-header class="dev-title-container">
+        <mat-card-title >
+            Dev - Pendências
+        </mat-card-title>
+        <button 
+            mat-icon-button
+            (click)="navigateToTickets()"
+            aria-label="Ir para lista de Tickets.">
+            <mat-icon>receipt_long</mat-icon>
+        </button>
+    </mat-card-header>
+    <mat-card-content>
+        <div class="table-container" #scrollContainer>
+            <mat-card-header class="mat-card-title">
+            <h1 class="title">Lista de Tickets</h1>
+            </mat-card-header>
+        
+            <mat-card-content class="mat-card-content">
+                <mat-form-field class="form-field">
+                    <input #input style="padding-left: 15px;" matInput (keyup)="shareService.applyFilter($event, dataSource, '')" placeholder="Filtro" placeholder="Ex. Roteador">
+                </mat-form-field>
+
+                <div class="card-paginator">
+                    <mat-paginator class="paginator" [pageSizeOptions]="[10, 25, 50, 100]" aria-label="Selecione a página de equipamentos">
+                    </mat-paginator>
+                </div>
+            </mat-card-content>
+
+            <mat-card-content class="mat-card-content-table">
+            <table mat-table [dataSource]="dataSource" matSort (matSortChange)="shareService.sortData($event, originalData, dataSource)" class="mat-elevation-z2">
+        
+                <ng-container matColumnDef="title">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Assunto</th>
+                <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+                </ng-container>
+        
+                <ng-container matColumnDef="category">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Categoria</th>
+                <td mat-cell *matCellDef="let element"> {{element.category}} </td>
+                </ng-container>
+    
+                <ng-container matColumnDef="description">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Descrição</th>
+                <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+                </ng-container>
+    
+                <ng-container matColumnDef="userRequester">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Requisitor</th>
+                <td mat-cell *matCellDef="let element"> {{GetUserbyId(element.user_req.name)}} </td>
+                </ng-container>
+    
+                <ng-container matColumnDef="startDate">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Data de Criação</th>
+                <td mat-cell *matCellDef="let element">{{shareService.dateToStringWithHours(element.start_date)}} </td>
+                </ng-container> 
+    
+                <!-- <ng-container matColumnDef="endDate">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Data de Finalização</th>
+                <td mat-cell *matCellDef="let element">{{shareService.dateToStringWithHours(element.end_date)}}</td>
+                </ng-container>  -->
+        
+                <ng-container matColumnDef="button">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Editar</th>
+                <td mat-cell *matCellDef="let element; let i = index">
+                    <button 
+                    mat-button class="button" 
+                    color="primary" 
+                    title="Marcar como Finalizado"
+                    (click)="setAsFinished(element.id, i)">
+                    <mat-icon>checkBox</mat-icon>
+                    </button>
+                </td>
+                </ng-container>
+    
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr style="cursor: pointer;" 
+                    mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        
+                <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="4">Nenhum dado encontrado</td>
+                </tr>
+            </table>
+            </mat-card-content>
+        </div>
+    </mat-card-content>
+</mat-card>
+
+<mat-card class="container mat-elevation-z2">
+    <mat-card-header class="title-container">
+        <mat-card-title >
+            Calendário de Atividades
+        </mat-card-title>
+    </mat-card-header>
+
+    <full-calendar [options]="monthView"></full-calendar>
+</mat-card>
+
+<mat-card *ngIf="showChart" class="container mat-elevation-z2">
+    <mat-card-header class="title-container">
+        <mat-card-title >
+            Cadernos em Execução
+        </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <ngx-charts-bar-vertical-normalized
+          [view]="view"
+          [scheme]="colorScheme"
+          [results]="booksInExecution"
+          [gradient]="gradient"
+          [xAxis]="showXAxis"
+          [yAxis]="showYAxis"
+          [legend]="showLegend"
+          [showXAxisLabel]="showXAxisLabel"
+          [showYAxisLabel]="showYAxisLabel"
+          [yAxisLabel]="yAxisLabel"
+          [legendTitle] = "'Legenda'"
+          (select)="onSelect($event)">
+        </ngx-charts-bar-vertical-normalized>
+    </mat-card-content>
+</mat-card>
+
+<!-- <mat-card>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+            <mat-panel-title class="title">
+                Equipe - Centro de Desenvolvimento de Tecnologias
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <img class="img" src="assets/img/equipe.png" alt="logo">
+    </mat-expansion-panel>
+</mat-card> -->
+

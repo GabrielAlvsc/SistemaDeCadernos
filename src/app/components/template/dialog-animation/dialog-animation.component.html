@@ -1,0 +1,7 @@
+<h2 mat-dialog-title>Deletar {{message}}</h2>
+<div mat-dialog-content>Deseja Confirmar a exclusão?</div>
+<div mat-dialog-actions>
+<div mat-dialog-actions>
+    <button mat-button mat-dialog-close>Não</button>
+    <button mat-button mat-dialog-close cdkFocusInitial (click)="deletionConfirm()">Sim</button>
+</div>

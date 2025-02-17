@@ -1,0 +1,53 @@
+.mat-card {
+    padding: 15px;
+}
+
+.mat-card-title {
+    color: black;
+    font-size: large;
+    width: auto;
+}
+
+.title {
+    font-weight: 400;
+}
+
+.mat-form-field {
+    width: 400px;
+}
+
+.mat-card-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 80px;
+    margin-top: 20px;
+    margin-bottom: 25px;
+}
+
+.mat-card-content-table {
+    margin: 0px 15px;
+    overflow: auto;
+}
+
+.mat-card-content .mat-card-actions {
+    padding-bottom: 30px;
+}
+
+.mat-card .mat-card-actions {
+    align-self: flex-end;
+    display: contents;
+}
+
+.mat-cell {
+    padding: 20px;
+}
+
+.container_div{
+    /* display: flex;
+    flex-wrap: wrap; */
+    width: 100%;
+    overflow: auto;
+    max-height: 79vh;
+    height: auto;
+  }

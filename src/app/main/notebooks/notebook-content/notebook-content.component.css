@@ -1,0 +1,39 @@
+.mat-card-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+h2 {
+    font-weight: 400;
+}
+
+h3 {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.divv{
+    margin-top: 15px;
+    margin-right: 20px;
+}
+
+.main-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.mat-button {
+    width: 150px;
+    height: 40px;
+    margin-left: 10px;
+}
+
+.mat-card-actions-table {
+    overflow: auto;
+}
+
+.title-link {
+    text-decoration: none;
+    color: black;
+}

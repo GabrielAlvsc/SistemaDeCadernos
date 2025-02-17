@@ -1,0 +1,37 @@
+<div class="container">
+    <mat-card class="mat-card">
+        <mat-card-header>
+            <mat-card-title class="title">
+                <h1>Enviar uma solicitação</h1>
+            </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <form style="margin-top: 10px;" [formGroup]="ticketsForm">
+                <mat-form-field class="title-field">
+                    <mat-label>Assunto</mat-label>
+                    <input type="text" matInput formControlName="title" required>
+                </mat-form-field>
+                <mat-form-field class="category-field">
+                    <mat-label>Categoria</mat-label>
+                    <mat-select formControlName="category">
+                        <mat-option *ngFor="let category of categories" [value]="category.name">
+                            {{category.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="description-field">
+                    <mat-label>Descrição</mat-label>
+                    <textarea matInput formControlName="description"></textarea>
+                </mat-form-field>
+                <mat-card-actions>
+                    <button mat-raised-button type="submit" class="send-button" (click)="createTicket()" title="">
+                        Enviar
+                    </button>
+                    <button mat-raised-button class="close-button" (click)="closeRequest()" title="Sair">
+                        <mat-icon class="logout-icon">logout</mat-icon>
+                    </button>
+                </mat-card-actions>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>

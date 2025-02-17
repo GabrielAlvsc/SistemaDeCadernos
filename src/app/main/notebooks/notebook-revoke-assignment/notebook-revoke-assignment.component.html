@@ -1,0 +1,45 @@
+<mat-card>
+    <mat-card-content class="card-content-header">
+        <mat-card-header class="card-title">
+            <h1> Histórico de Status </h1>
+            <!-- Formatar -->
+            <h3> Caderno: {{model}} </h3>
+            <h3> Equipamento: {{equipment}} </h3>
+            <h3> Versão: {{version}} </h3>
+            <h3> Responsável: {{usernameResp}} </h3>
+            <h3> Executor: {{usernameExec}} </h3>
+            <h3> Status atual: {{currentStatus}}</h3>
+        </mat-card-header>
+        <mat-card-actions class="mat-card-actions">
+            <button mat-raised-button class="mat-button" (click)="goBack()"
+                style="color: black;">Voltar</button>
+
+            <div *ngIf="status != 'Revogado'">
+                <button *ngIf="status != 'Aprovado'" mat-raised-button class="mat-button"
+                (click)="openDialog('Aprovado')" style="color: white;" [style.background-color]="approve_btn">
+                Aprovar </button>
+
+            <button *ngIf="status != 'Suspenso'" mat-raised-button class="mat-button"
+                (click)="openDialog('Suspenso')" style="color: white;" [style.background-color]="suspend_btn">
+                Suspender </button>
+
+            <button *ngIf="status != 'Revogado'" mat-raised-button class="mat-button"
+                (click)="openDialog('Revogado')" style="color: white;" [style.background-color]="revoke_btn">
+                Revogar </button>
+            </div>
+            <button *ngIf="status != 'Pendente'" mat-raised-button class="mat-button"
+                (click)="openDialog('Pendente')" style="color: white;" [style.background-color]="edit_btn">
+                Editar </button>
+        </mat-card-actions>
+    </mat-card-content>
+
+    <mat-card-content>
+        <mat-card style="display: flex; margin: 10px;" *ngFor="let element of card; let i = index">
+            <mat-form-field class="mat-form-field" [style.background-color]="card[i].color" style="border-radius: 5px;">
+                <input [disabled]="true" [value]="card[i].statusAndDate" matInput type="text" style="color: black;">
+                <input [disabled]="true" [value]="card[i].userLog" matInput type="text" style="color: black;">
+                <input [disabled]="true" [value]="card[i].comment" matInput type="text" style="color: black;" *ngIf="card[i].comment != ''">
+            </mat-form-field>
+        </mat-card>
+    </mat-card-content>
+</mat-card>

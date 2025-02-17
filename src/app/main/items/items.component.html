@@ -1,0 +1,197 @@
+<mat-card class="mat-card" (paste)="onPaste($event)" class="paste-area">
+    <div class="main-header">
+        <mat-card-header>
+            <mat-card-title>
+                <h1> <a [routerLink]="['/models']" class="title-link">Modelos de Caderno</a> > 
+                    <a [routerLink]="['/models/' + model_id]" class="title-link">{{model_name}}</a> > {{pageTitle}}
+                </h1>
+            </mat-card-title>
+        </mat-card-header>
+    </div>
+
+    <div class="fixed-fields">
+        <mat-card-content>
+            <mat-form-field>
+                <mat-label>Título</mat-label>
+                <input matInput type="text" [formControl]="title">
+            </mat-form-field>
+            <!-- Campo descrição com ngxEditor para permitir texto formatado -->
+            <app-editor this.concluded [value]="description" (editordoc)="description = $event"
+                [ariaDisabled]="true"></app-editor>
+        </mat-card-content>
+    </div>
+    <div class="cards-container">
+        <mat-card-content style="align-items: flex-start;">
+            <!-- Botão de inserir imagens -->
+            <input [disabled]="concluded" (change)="onFileSelected($event)" type="file" class="file-input" 
+                name="image"
+                #fileUpload accept=".jpg, .png, image/*, .pdf, .doc" multiple>
+            <button type="button" [disabled]="concluded" class="mat-button" mat-mini-fab color="primary"
+                class="upload-btn" (click)="fileUpload.click()" title="Adicionar imagem">
+                <mat-icon>attach_file</mat-icon>
+            </button>
+        </mat-card-content>
+        <mat-card-content style="margin-left: 0;">
+            <mat-card *ngFor="let image of images; let i = index" class="card-images">
+                <mat-card-content>
+                    <mat-card-title>
+                        <h3>{{image.name}}</h3>
+                    </mat-card-title>
+                    <div class="image-container">
+                        <img mat-card-sm-image src="{{image.path}}">
+                    </div>
+                    <mat-card-actions>
+                        <button type="button" mat-icon-button color="primary" title="inserir imagem" (click)="addImageToEditor(i)">
+                            <mat-icon>arrow_upward</mat-icon>
+                        </button>
+                        <button type="button" mat-icon-button color="warn" title="deletar imagem" (click)="deleteImage(i)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </mat-card-actions>
+                </mat-card-content>
+            </mat-card>
+        </mat-card-content>
+    </div>
+    <section class="section">
+        <mat-checkbox [formControl]="is_subitem" class="">Sub-item</mat-checkbox>
+    </section>
+    <section class="section" *ngIf="is_subitem.value">
+        <div  style="margin-right: 25px;">
+            <mat-form-field class="form-field">
+                <mat-label>Item Pai</mat-label>
+                <mat-select [formControl]="father_id" *ngIf="this.urlPaths[7] == 'create'">
+                    <mat-option *ngFor="let elements of itensIV" [value]="elements.id">
+                        {{elements.fullorder}}. {{elements.title}}
+                    </mat-option>
+                </mat-select>
+                <mat-select [formControl]="father_id" *ngIf="this.urlPaths[7] == 'edit'">
+                    <mat-option *ngFor="let elements of itensIT" [value]="elements.id">
+                        {{elements.fullorder}}. {{elements.title}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </section>
+    <section class="section">
+        <mat-checkbox [formControl]="fillable" class="">Preenchível</mat-checkbox>
+    </section>
+    <section class="section" *ngIf="fillable.value">
+        <mat-checkbox [formControl]="mandatory" class="">Mandatório</mat-checkbox>
+    </section>
+    <div *ngIf="fillable.value" class="type-fields">
+        <mat-card-content>
+            <mat-card-header>
+                <h2>Tipos de Campos</h2>
+            </mat-card-header>
+            <a *ngFor="let items of typefields">
+                <button type="button" [disabled]="concluded" class="typeField-button" mat-raised-button color="primary"
+                    (click)="addFields(items.id)">{{items.name}}</button>
+            </a>
+        </mat-card-content>
+    </div>
+    <div *ngIf="fillable.value" class="fields">
+        <mat-card-content>
+            <mat-card-header>
+                <h1>Campos</h1>
+            </mat-card-header>
+            <mat-card-content>
+                <span *ngFor="let itens of fields; let i = index">
+                    <mat-card class="itens">
+                        <div class="flex-card-row">
+                            <div class="flex-card-column">
+                                <div *ngFor="let type of typefields">                
+                                    <h2 *ngIf="itens.type_field_id == type.id">
+                                        {{i+1}}. {{type.name}}
+                                    </h2>
+                                </div>
+                                <div *ngIf="fields[i].type_field_id != 5">
+                                    <mat-form-field class="form-field">
+                                        <mat-label>Titulo</mat-label>
+                                        <input [disabled]="concluded" [(ngModel)]="fields[i].title_field"
+                                            (ngModelChange)="fieldChange(i,'title_field',$event)" matInput type="text">
+                                    </mat-form-field>
+                                </div>
+                                <div *ngIf="fields[i].type_field_id == 1">
+                                    <mat-form-field class="form-field">
+                                        <mat-label>Valor</mat-label>
+                                        <input [disabled]="concluded" [(ngModel)]="fields[i].standard_value"
+                                            (ngModelChange)="fieldChange(i,'standard_value',$event)" matInput
+                                            type="text">
+                                    </mat-form-field>
+                                </div>
+                                <div *ngIf="fields[i].type_field_id == 2">
+                                    <app-editor [value]="fields[i].standard_value"
+                                        (editordoc)="fields[i].standard_value = $event"></app-editor>
+                                </div>
+                               
+                                <div *ngIf="fields[i].type_field_id == 4">
+                                    <mat-form-field class="form-field">
+                                        <mat-label>Script</mat-label>
+                                        <textarea [disabled]="concluded" matInput
+                                            [(ngModel)]="fields[i].standard_value"></textarea>
+                                    </mat-form-field>
+                                </div>
+                                <div *ngIf="fields[i].type_field_id == 5">
+                                    <div>
+                                        <mat-form-field class="form-field">
+                                            <mat-label>Título da Característica</mat-label>
+                                            <mat-select [disabled]="concluded" [(ngModel)]="fields[i].title_field"
+                                                (selectionChange)="changeFeatureVisibility(i)" (focus)="savePreviousValue(i)">
+                                                <mat-option *ngFor="let feature of variableFeatures"
+                                                    [value]="feature.id" [disabled]="feature.disabled">
+                                                    {{feature.name}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div>
+                                        <mat-form-field class="form-field">
+                                            <mat-label>Valor padrão</mat-label>
+                                            <input [disabled]="concluded" [(ngModel)]="fields[i].standard_value"
+                                                (ngModelChange)="fieldChange(i,'standard_value',$event)" matInput
+                                                type="text">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="field-button">
+                                <button type="button" [disabled]="concluded" mat-mini-fab color="warn"
+                                    (click)="deleteField(i)" title="Deletar campo">
+                                    <mat-icon>delete</mat-icon>
+                                </button>
+                                <div class="field-arrows">
+                                    <button (click)="setOrder(i,'up')" mat-button class="button" [disabled]="concluded"
+                                        title="Mover para cima">
+                                        <mat-icon>keyboard_arrow_up</mat-icon>
+                                    </button>
+                                    <button (click)="setOrder(i,'down')" mat-button class="button"
+                                        [disabled]="concluded" title="Mover para baixo">
+                                        <mat-icon>keyboard_arrow_down</mat-icon>
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </mat-card>
+                </span>
+            </mat-card-content>
+        </mat-card-content>
+    </div>
+    <div class="action-button">
+        <mat-card-actions class="mat-card-actions" align="end">
+            <button mat-raised-button class="mat-button" (click)="goBack()">
+                Voltar
+            </button>
+            <mat-card-actions *ngIf="this.urlPaths[7] == 'edit'">
+                <button *ngIf="!concluded" mat-raised-button class="mat-button" (click)="itemDelete()"
+                    style="background-color: #df4646; color: white;">
+                    Deletar
+                </button>
+            </mat-card-actions>
+            <button *ngIf="!concluded" mat-raised-button class="mat-button" (click)="saveItem(true)"
+                onkeyup="saveItem(true)" style="background-color: var(--green-light); color: white;">
+                {{buttonTitle}}
+            </button>
+        </mat-card-actions>
+    </div>
+</mat-card>

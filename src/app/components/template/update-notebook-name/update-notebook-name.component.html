@@ -1,0 +1,25 @@
+<div class="container">
+    <mat-card class="mat-card">
+        <mat-card-header>
+            <mat-card-title class="title" >
+                <h1>Alterar Nome do Caderno</h1>
+            </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <form style="margin-top: 10px;" [formGroup]="ticketsForm">
+                <mat-form-field class="title-field">
+                    <mat-label>Digite o novo nome do caderno</mat-label>
+                    <input type="text" matInput formControlName="title" required>
+                </mat-form-field>
+                <mat-card-actions>
+                    <button mat-raised-button type="submit" class="send-button" (click)="updateName()"title="">
+                        Salvar
+                    </button>
+                    <button mat-raised-button class="close-button" (click)="closeRequest()" title="Sair">
+                        <mat-icon class="logout-icon">logout</mat-icon>
+                    </button>
+                </mat-card-actions>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>

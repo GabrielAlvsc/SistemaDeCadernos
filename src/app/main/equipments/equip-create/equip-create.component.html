@@ -1,0 +1,93 @@
+<mat-card class="container">
+    <mat-card-header>
+        <mat-card-title class="mat-card-title">
+            <h1> <a [routerLink]="['/equipments']">Equipamentos</a> > {{title}}</h1>
+        </mat-card-title>
+        <mat-card-actions class="button-container-horizontal">
+            <button mat-raised-button class="mat-button" type="button" (click)="cancel()"
+                style="color: black; margin: 5px;">Voltar</button>
+    
+            <span *ngIf="params[4] === 'edit'">
+                <button mat-raised-button class="mat-button" type="button" (click)="deleteEquip()"
+                    style="background-color: #df4646; color: white; margin: 5px;">Deletar</button>
+            </span>
+        </mat-card-actions>
+    </mat-card-header>
+
+    <mat-card-content style="    overflow: auto;">    
+        <mat-stepper (selectionChange)="checkStep($event)" [linear]="true" orientation="vertical" #stepper>
+            <mat-step label="{{firstStep}}" [stepControl]="equipmentForm" [completed]="false" >
+                <form style="margin-top: 10px;" [formGroup]="equipmentForm">
+                    <mat-form-field class="form-field">
+                        <mat-label>Equipamento</mat-label>
+                        <input type="text" matInput formControlName="name" required>
+                    </mat-form-field>
+                    <mat-form-field class="form-field">
+                        <mat-label>Fabricante</mat-label>
+                        <input type="text" matInput formControlName="vendor" required>
+                    </mat-form-field>
+
+                    <mat-form-field class="form-field">
+                        <mat-label>Código SAP</mat-label>
+                        <input type="text" matInput formControlName="sap">
+                    </mat-form-field>
+
+                    <mat-form-field class="form-field">
+                        <mat-label>Valor ($)</mat-label>
+                        <input type="number" matInput formControlName="price" required>
+                    </mat-form-field>
+                </form>
+
+                <form [formGroup]="endOfSalesForm">
+                    <mat-form-field class="form-field">
+                        <mat-label>End of Sales</mat-label>
+                        <input matInput placeholder="DD/MM/YYYY" [matDatepicker]="d1" formControlName="endofsales">
+                        <mat-datepicker-toggle matIconSuffix [for]="d1"></mat-datepicker-toggle>
+                        <mat-datepicker #d1 startView="year"></mat-datepicker>
+                    </mat-form-field>
+                </form>
+
+                <div class="button-container">
+                    <button mat-raised-button type="submit" (click)="postOrPatchRequest()"
+                    style="background-color: var(--blue-dark); color: white; margin-bottom: 10px;">{{button}}</button>
+    
+                    <button mat-raised-button type="submit" (click)="postOrPatchRequest(true)"
+                    style="background-color: var(--green-light); color: white;">{{finish_button}}</button>
+                </div>
+
+            </mat-step>
+
+
+            <mat-step (paste)="onPaste($event)" label="Imagem do Equipamento">
+                <mat-card (paste)="onPaste($event)" class="image-class">
+                    <mat-card-content>
+                        <div class="image-container">        
+                            <ng-container *ngIf="images_length > 0; else elseTemplate">
+                                <img mat-card-sm-image src="{{images[0].path}}">
+                            </ng-container>
+                            <ng-template #elseTemplate>
+                                <img mat-card-sm-image>
+                            </ng-template>
+                        </div>
+                    </mat-card-content>
+                    <mat-divider></mat-divider>
+                    <mat-card-actions style="height: 50px;">
+                        <input (change)="onFileSelected($event)" type="file" class="file-input" name="image"
+                        #fileUpload accept=".jpg, .png">
+                    <button type="button" class="mat-button" mat-icon-button color="primary"
+                        class="upload-btn" (click)="fileUpload.click()">
+                        <mat-icon>attach_file</mat-icon>
+                    </button>
+        
+                    <button type="button" mat-icon-button color="primary" (click)="copyUrl()">
+                        <mat-icon>content_copy</mat-icon>
+                    </button>
+                    </mat-card-actions>
+                </mat-card>
+                <button mat-raised-button type="submit" (click)="cancel()"
+                    style="background-color: var(--green-light); color: white;
+                    width: 100%;">{{finish_button}}</button>
+            </mat-step>
+        </mat-stepper>
+    </mat-card-content>
+</mat-card>

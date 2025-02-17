@@ -1,0 +1,50 @@
+<mat-card class="mat-card">
+    <mat-card-header class="mat-card-header-title">
+        <mat-card-title>
+            <h1>Selecione os Items</h1>
+        </mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="mat-card-content-table">
+        <table mat-table [dataSource]="itemDataSource" matSort class="mat-elevation-z2">
+            <!-- Checkbox de seleção de linhas da tabela -->
+            <ng-container matColumnDef="select">
+                <th mat-header-cell *matHeaderCellDef>
+                    <mat-checkbox (change)="$event ? toggleAllRows() : null"
+                        [checked]="selection.hasValue() && isAllSelected()"
+                        [indeterminate]="selection.hasValue() && !isAllSelected()">
+                    </mat-checkbox>
+                </th>
+                <td mat-cell *matCellDef="let row">
+                    <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+                        [checked]="selection.isSelected(row)">
+                    </mat-checkbox>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="title">
+                <th mat-header-cell *matHeaderCellDef>Titulo</th>
+                <td mat-cell *matCellDef="let element">{{element.title}}</td>
+            </ng-container>
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef>ID</th>
+                <td mat-cell *matCellDef="let element">{{element.id}}</td>
+            </ng-container>
+            <ng-container matColumnDef="father_id">
+                <th mat-header-cell *matHeaderCellDef>ID do Item Pai</th>
+                <td mat-cell *matCellDef="let element">{{element.father_id}}</td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)"></tr>
+            <!-- Linha apresentada quando não consta nenhum dado na tabela -->
+            <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="4" style="padding: 20px;">Nenhum dado encontrado</td>
+            </tr>
+        </table>
+    </mat-card-content>
+    <mat-card-actions class="mat-card-actions-buttons" align="end">
+        <button mat-raised-button class="mat-button" style=" color: black;" (click)="goBack()">
+            Voltar
+        </button>
+        <button mat-raised-button class="mat-button" type="submit"
+            style="background-color: var(--green-light); color: white;" (click)="request()">Salvar</button>
+    </mat-card-actions>
+</mat-card>

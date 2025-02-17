@@ -1,0 +1,41 @@
+<div class="container">
+    <mat-card-header class="mat-card-title">
+        <h1 class="title">A imagem foi encontrada nos seguintes cadernos</h1>
+        <button mat-button class="mat-button" mat-dialog-close style="padding-left: 16px;">
+            <mat-icon>
+                close
+            </mat-icon>
+        </button>
+    </mat-card-header>
+    <div class="content">
+        <mat-card class="mat-elevation-z8 mat-card-content">
+            <table mat-table [dataSource]="dataSource" matSort>
+                <ng-container matColumnDef="model">
+                    <th mat-header-cell *matHeaderCellDef> Modelo </th>
+                    <td (click)="navigate(row.book_id, row.item_id)" mat-cell *matCellDef="let row"> {{row.modelo}} </td>
+                </ng-container>
+                <ng-container matColumnDef="version">
+                    <th mat-header-cell *matHeaderCellDef> Versão </th>
+                    <td (click)="navigate(row.book_id, row.item_id)" mat-cell *matCellDef="let row"> {{row.versao}} </td>
+                </ng-container>
+                <ng-container matColumnDef="equipment">
+                    <th mat-header-cell *matHeaderCellDef> Equipamento </th>
+                    <td (click)="navigate(row.book_id, row.item_id)" mat-cell *matCellDef="let row"> {{row.equipamento}}</td>
+                </ng-container>
+                <ng-container matColumnDef="vendor">
+                    <th mat-header-cell *matHeaderCellDef> Fabricante </th>
+                    <td (click)="navigate(row.book_id, row.item_id)" mat-cell *matCellDef="let row"> {{row.vendor}} </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row style="cursor: pointer;" *matRowDef="let row; columns: displayedColumns;"></tr>
+                <!-- Row shown when there is no matching data. -->
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4">Nenhum dado encontrado</td>
+                </tr>
+            </table>
+        </mat-card>
+        <mat-card-actions class="mat-card-actions">
+            <mat-paginator [pageSizeOptions]="[5]" aria-label="Select page of users"></mat-paginator>
+        </mat-card-actions>
+    </div>
+</div>

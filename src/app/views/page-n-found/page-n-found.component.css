@@ -1,0 +1,111 @@
+.not-found-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 85vh;
+    text-align: center;
+}
+
+.error-code {
+    font-size: 10rem;
+    font-weight: bold;
+    margin: 0;
+    color: var(--blue-dark);
+    /* background-image: linear-gradient(var(--green-light), ; */
+}
+
+.error-message {
+    font-size: 1.5rem;
+    margin: 60px 0;
+    color: #757575;
+}
+
+.button-container {
+    margin-top: 20px;
+}
+
+button {
+    margin: 0 10px;
+}
+
+.portal-button {
+    background-color: var(--portal-green);
+    color: white;
+    width: 150px;
+    height: 50px;
+} 
+
+.home-button {
+    background-color: var(--blue-dark);
+    color: white;
+    width: 150px;
+    height: 50px;
+} 
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-image: linear-gradient(to right, var(--blue-dark), var(--blue-light));
+    position: relative;
+    width: 100%;
+}
+
+.header a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.header .logo {
+    max-height: 32px;
+}
+
+.header .title-group {
+    padding-left: 25px;
+}
+
+.header .title-group i {
+    padding-right: 10px;
+}
+
+.material-icons {
+    color: white;
+}
+
+.division {
+    justify-content: space-between;
+}
+
+.container {
+    display: flex;
+    align-items: center; /* Isso alinha os itens verticalmente */
+}
+
+.logo{
+    position: absolute;
+    left: 5%;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    height: 15px;
+    /* max-height: 40px; */
+    display: flex;
+    justify-content: flex-end;
+    /* background-color: aliceblue; */
+    background-color: var(--portal-green);
+    
+}
+
+.footer > span {
+    font-size: 1rem;
+    font-weight: 300;
+}
+
+.footer > span > h2{
+    font-size: xx-small;
+}
+  

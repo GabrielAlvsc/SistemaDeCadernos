@@ -1,0 +1,157 @@
+<mat-card>
+    <mat-card-content>
+        <div class="main-header">
+            <mat-card-header>
+                <h1> <a [routerLink]="['/' + params[4]]" class="title-link">{{title}}</a> > {{model}} </h1>
+                <button mat-flat-button (click)="goBack()" title="Voltar">
+                    <mat-icon>keyboard_backspace</mat-icon>
+                </button>
+            </mat-card-header>
+
+            <div *ngIf="revision" style="display: flex;" class="divv">
+
+                <button 
+                    mat-raised-button class="mat-button"     
+                    (click)="shareService.createPDF(idBook, idModel, idVersion)"    
+                    style="background-color: var(--purple); color: white;">   
+                    Gerar PDF
+                </button>
+
+                <button 
+                    *ngIf="canFinishBook == true"
+                    mat-raised-button class="mat-button"
+                    style="background-color: var(--green); color: white;"
+                    (click)="changeStatus('Aprovado')">
+                    Aprovar
+                </button>
+
+                <button 
+                    *ngIf="canFinishBook == true"
+                    mat-raised-button class="mat-button"
+                    style="background-color: var(--red); color: white;"
+                    (click)="changeStatus('Reprovado')">
+                    Reprovar
+                </button>
+
+                <button 
+                    mat-raised-button class="mat-button"
+                    style="background-color: var(--dark-gray); color: white;"
+                    (click)="changeStatus('Cancelado')">
+                    Cancelar
+                </button>
+            </div>
+
+        </div>
+        <mat-card-content>
+            <!-- Formartar -->
+            <h3>Versão: {{version}}</h3>
+            <h3>Categoria: {{segment}}</h3>
+            <h3>Responsável: {{usernameResp}}</h3>
+            <h3>Executor: {{usernameExec}}</h3>
+            <h3>Equipamento: {{equipment}}</h3>
+        </mat-card-content>
+    </mat-card-content>
+    <mat-card-content>
+        <div *ngIf="showFilterButton" style="display: flex; flex-direction: row-reverse;">
+            <ng-container *ngIf="!filtered; else elseTemplate">
+                <button mat-button color="primary"
+                (click)="filterDatasource(false)" title="Aplica Filtro">
+                {{filterButtonName}}
+              </button>
+            </ng-container>
+            <ng-template #elseTemplate>
+                <button mat-button color="primary"
+                (click)="filterDatasource(true)" title="Aplica Filtro">
+                Exibir Tudo
+              </button>
+            </ng-template>
+        </div>
+
+        <mat-card-content class="mat-card-content">
+            <mat-card-header>
+                <h2>Características</h2>
+            </mat-card-header>
+        </mat-card-content>
+        <mat-card-content>
+            <mat-card-actions class="mat-card-actions-table">
+                <table mat-table [dataSource]="features" matSort class="mat-elevation-z2">
+
+                    <ng-container matColumnDef="name">
+                        <th mat-header-cell *matHeaderCellDef>Titulo</th>
+                        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="response">
+                        <th mat-header-cell *matHeaderCellDef>Resposta</th>
+                        <td mat-cell *matCellDef="let element"> {{element.response_feature.response}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="status">
+                        <th mat-header-cell *matHeaderCellDef>Status</th>
+                        <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="button">
+                        <th mat-header-cell *matHeaderCellDef>Preencher</th>
+                        <td mat-cell *matCellDef="let element">
+                            <button (click)="navigate('features',element.id)" mat-button class="button" color="accent" title="Editar característica" [disabled]="element.is_variable" *ngIf="!viewScreen">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                            <button (click)="navigate('features',element.id)" mat-button class="button" color="accent" title="Visualizar característica" [disabled]="element.is_variable" *ngIf="viewScreen">
+                                <mat-icon>remove_red_eye</mat-icon>
+                            </button>
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="featuresColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: featuresColumns;"></tr>
+                </table>
+            </mat-card-actions>
+
+            <div class="card-paginator">
+            </div>
+        </mat-card-content>
+
+        <mat-card-content class="mat-card-content">
+            <mat-card-header>
+                <h2>Itens</h2>
+            </mat-card-header>
+        </mat-card-content>
+        <mat-card-content>
+            <mat-card-actions class="mat-card-actions-table">
+                <table mat-table [dataSource]="items" matSort class="mat-elevation-z2">
+
+                    <ng-container matColumnDef="title">
+                        <th mat-header-cell *matHeaderCellDef>Titulo</th>
+                        <td mat-cell *matCellDef="let element">{{element.fullorder}} {{element.title}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="mandatory">
+                        <th mat-header-cell *matHeaderCellDef>Mandatório</th>
+                        <td mat-cell *matCellDef="let element"> {{element.mandatory?'Sim':'Não'}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="status">
+                        <th mat-header-cell *matHeaderCellDef>Status</th>
+                        <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="button">
+                        <th mat-header-cell *matHeaderCellDef>Preencher</th>
+                        <td mat-cell *matCellDef="let element">
+                            <button (click)="navigate('item',element.id)" mat-button class="button" color="accent" title="Editar item" *ngIf="!viewScreen">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                            <button (click)="navigate('item',element.id)" mat-button class="button" color="accent" title="Visualizar item" *ngIf="viewScreen">
+                                <mat-icon>remove_red_eye</mat-icon>
+                            </button>
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="itemsColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: itemsColumns;"></tr>
+                </table>
+            </mat-card-actions>
+        </mat-card-content>
+    </mat-card-content>
+</mat-card>

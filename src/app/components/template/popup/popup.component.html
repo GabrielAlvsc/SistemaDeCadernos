@@ -1,0 +1,33 @@
+
+<div class="container">
+    <div>
+        <h2 mat-dialog-title>Caderno {{title}} {{vendor}} {{equipment}}</h2>
+        <h3>{{startDate}} - {{endDate}}</h3>
+    </div>
+
+    <div mat-dialog-actions>
+        <button mat-icon-button 
+                style="color: var(--dark-gray); align-content: start;"
+                (click)="closePopup()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+</div> 
+
+
+<div mat-dialog-content>
+    <div class="user-info">
+        <div>
+            <mat-icon class="icon">person</mat-icon>
+        </div>
+        <span>
+            <h4>Responsável: {{userResponsible}} </h4>
+        </span>
+    </div>
+
+    <mat-divider style="padding: 10px;"></mat-divider>
+    <div style="height: 10px; border-radius: 5px;"
+        [style.background-color]="color"></div>
+</div>
+
+

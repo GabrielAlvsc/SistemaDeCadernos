@@ -1,0 +1,40 @@
+.mat-card-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+h2 {
+    font-weight: 400;
+}
+
+.finish-button button {
+    margin-top: 15px;
+    margin-right: 20px;
+}
+
+.main-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.mat-card-actions-table {
+    overflow: auto;
+}
+
+.container_div{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    overflow: auto;
+    max-height: 84vh;
+}
+
+mat-card-content{
+    width: 98%;
+}

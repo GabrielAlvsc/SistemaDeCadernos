@@ -1,0 +1,63 @@
+.sidenav {
+    width: auto;
+    /* background-image: linear-gradient(var(--blue-light), var(--green-light)); */
+    background-image: linear-gradient(var(--blue-dark), var(--green-light));
+    position: absolute;
+}
+
+.nav-list {
+    padding-top: 4px;
+}
+
+.sidenav i {
+    padding: 12px;
+    vertical-align: -16%;
+}
+
+.sidenav a {
+    font-size: 15px;
+    align-self: center;
+}
+
+.material-icons {
+    color: white;
+}
+
+.icons {
+    padding: auto;
+}
+
+.label-icons{
+    color: white;
+    padding-bottom: 50px;
+}
+
+.content {
+    padding: 16px;
+    height: 84.4vh;
+}
+
+@media (max-height: 768px) {
+    .content {
+        padding: 16px;
+        height: 84.4vh;
+    }
+}
+  
+@media (max-height: 645px) {
+    .content {
+        padding: 16px;
+        height: 82.8vh;
+    }
+}
+  
+@media (max-height: 300px) {
+    .content {
+        padding: 16px;
+        height: 61.2vh;
+    }
+}
+ 
+  
+
+

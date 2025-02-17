@@ -1,0 +1,32 @@
+<mat-card class="mat-card">
+    <mat-card-header>
+        <mat-card-title class="mat-card-title">
+            <h1> <a [routerLink]="['/models']">Modelos de Caderno</a> > 
+                <a [routerLink]="['/models/' + model_id]">{{model_name}}</a> > {{title}}
+            </h1>
+        </mat-card-title>
+    </mat-card-header>
+    <form action="">
+        <mat-card-content>
+            <mat-form-field class="mat-form-field">
+                <mat-label>Título</mat-label>
+                <input type="text" matInput [formControl]="name">
+            </mat-form-field>
+            <mat-checkbox [formControl]="is_variable">Preenchivel durante os testes</mat-checkbox>
+        </mat-card-content>
+        <mat-card-actions class="mat-card-actions" >
+            <button mat-raised-button class="mat-button" type="button"
+                style="color: black;" (click)="GoBack()">
+                {{pagButtonC}}
+            </button>
+            <button *ngIf="params[7] === 'edit' && concluded == false" mat-raised-button class="mat-button" type="button"
+                style="background-color: var(--red); color: white;" (click)="deleteEquip()">
+                Deletar
+            </button>
+            <button *ngIf="concluded == false" mat-raised-button class="mat-button" type="submit"
+                style="background-color: var(--green-light); color: white;" (click)="RequestSelector()">
+                {{button_label}}
+            </button>
+        </mat-card-actions>
+    </form>
+</mat-card>

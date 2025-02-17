@@ -1,0 +1,35 @@
+.card-title {
+    display: flex;
+    flex-direction: column;    
+}
+
+h1 {
+    margin-bottom: 10px;
+}
+
+h3 {
+    margin-top: 5px; /* Ajuste o valor conforme necessário */
+    margin-bottom: 5px; /* Ajuste o valor conforme necessário */
+}
+
+.mat-form-field{
+    width: 100%;
+    background-color: white;
+    border-radius: 3px;
+}
+
+.card-content-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.mat-button{
+    width: 100px;
+    margin-left: 10px;
+}
+
+.mat-card-actions {
+    margin-top: 8px;
+    margin-right: 2px;
+}

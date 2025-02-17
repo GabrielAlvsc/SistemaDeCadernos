@@ -1,0 +1,48 @@
+:root {
+    --blue-light: #00a5ba;
+    --blue-dark: rgb(7,121,207);
+    --green-light: #41d287;
+    --green:#1eb969;
+    --red: #df4646;
+    --yellow: #ceac3a;
+    --gray: #a9a9a9;
+    --dark-gray:rgb(85, 85, 85);
+    --blue: #19a2b4;
+    --orange: #ceac3a;
+    --ajusted-green: #56876e;
+    --ajusted-red: #c34040; 
+    --purple: #7327b5;
+    --portal-green: #40d187;
+    --ligth-portal-green: rgb(69, 235, 149);
+    --old-green: #48cca9;
+}
+
+html, body { height: 100%; }
+
+body {
+    margin: 0; 
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    /* background-image: linear-gradient(to right,rgb(17, 131, 144),rgb(0, 165, 186)); */
+}
+
+.v-middle{
+    vertical-align: middle;
+}
+
+.violet {
+    background-color: blueviolet;
+}
+
+h1 {
+    font-size: large;
+    color: black;
+    font-weight: 500;
+}
+
+input::-ms-reveal, 
+input::-ms-clear, 
+input::-webkit-clear-button, 
+input::-webkit-inner-spin-button, 
+input::-webkit-password-toggle-button {
+  display: none;
+}

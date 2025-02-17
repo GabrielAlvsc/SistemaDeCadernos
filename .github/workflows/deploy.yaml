@@ -1,0 +1,36 @@
+name: Pull on server
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: self-hosted
+    
+    steps:
+      # - uses: actions/checkout@v4
+      
+      - name: Checkout to main
+        run: git checkout main
+      
+      - name: Run a pull request
+        run: git pull origin main
+        
+      - name: Run install (Angular)
+        run: npm install
+
+      - name: Building in prod
+        run: ng build -c production
+
+      - name: Clean /var/www/html
+        run: sudo rm -rf /var/www/cadernos
+      - name: generate version
+        run: echo "echo $(( $(git rev-list --count --all)/1000 + 1)).$(( $(git rev-list --count --all)%1000)) " > dist/frontend/get_version.sh
+     
+      - name: Move to /var/www/html
+        run: sudo cp -r dist/frontend /var/www/cadernos
+
+      - name: Atualizar ambiente de desenvolvimento
+        run: scp -r /var/www/cadernos root@201.48.114.82:/var/www

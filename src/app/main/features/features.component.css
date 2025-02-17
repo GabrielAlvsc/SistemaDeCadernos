@@ -1,0 +1,30 @@
+
+.mat-card .mat-mdc-card-content {
+    display: flex;
+    flex-direction: column;
+    padding: 0px 40px;
+}
+
+.mat-card .mat-mdc-card-header {
+    display: flex;
+    padding: 20px 40px 5px;
+}
+
+.mat-card .mdc-card__actions {
+    justify-content: end;
+    padding: 10px 40px 30px;
+}
+
+.mat-button{
+    width: 100px;
+    margin-left: 10px;
+}
+
+mat-card-header {
+    margin-top: 10px;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}

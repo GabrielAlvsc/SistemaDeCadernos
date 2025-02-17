@@ -1,0 +1,231 @@
+.main-header>mat-card-header {
+    margin: 15px 0px 0px 20px;
+}
+
+.fixed-fields>mat-card-content {
+    display: flex;
+    flex-direction: column;
+    margin: 0px 20px 0px 20px;
+    padding-bottom: 0px;
+}
+
+.section {
+    margin: 10px 0px 0px 30px;
+}
+
+.action-button button {
+    margin-left: 10px;
+    width: 150px;
+}
+
+.type-fields button {
+    margin-right: 1cqw;
+    height: 50px;
+    width: 100px;
+}
+
+.delete-button {
+    flex: 1;
+    width: 60px;
+    height: 60px;
+}
+
+.mat-card-actions {
+    margin-right: 25px;
+    margin-bottom: 15px;
+}
+
+.span {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 80px;
+    margin-top: 20px;
+    margin-bottom: 25px;
+}
+
+.itens {
+    display: flex;
+    margin-top: 10px;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.cards-container {
+    /* display: flex; */
+    display: block;
+}
+
+.cards-container>mat-card-content {
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.upload-btn {
+    margin-left: 5px;
+}
+
+.imagens {
+    flex: 1;
+    margin: 10px;
+    align-items: center;
+}
+
+.form-field {
+    margin-right: 25px;
+    align-self: flex-start;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.type-fields mat-card-content>a {
+    margin-left: 15px;
+}
+
+.fields mat-card {
+    padding: 20px;
+    padding-bottom: 0px;
+}
+
+.file-input {
+    display: none;
+}
+
+.field-button>button {
+    align-self: flex-end;
+    padding-bottom: 0px;
+    margin-top: 10px;
+    margin-left: 50px;
+}
+
+.file-upload {
+    display: flex;
+    margin-top: 10px;
+    align-items: center;
+}
+
+.file-upload>span {
+    margin-right: 10px;
+}
+
+.flex-card-column {
+    display: flex;
+    flex: 9;
+    flex-direction: column;
+}
+
+.flex-card-row {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.card-images {
+    margin-left: 25px;
+    margin-top: 15px;
+    padding: 16px;
+    margin-bottom: 0;
+}
+
+.card-images mat-card-actions {
+    padding: 0;
+}
+
+.card-images mat-card-content {
+    padding: 0;
+}
+
+.image-container {
+    position: relative;
+    display: block;
+    text-align: center;
+}
+
+.card-images mat-card-title {
+    text-align: center;
+    max-width: 100px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.image-container:hover .tooltip {
+    opacity: 0.8;
+    visibility: visible;
+}
+
+.flex-card-column>h3 {
+    margin-left: 10px;
+}
+
+mat-card {
+    margin: 30px 0px;
+    padding: 30px 40px;
+}
+
+mat-card-content {
+    padding: 0px;
+}
+
+mat-card-actions {
+    padding: 0px;
+}
+
+.load-tags>mat-card-content {
+    display: flex;
+    justify-content: center;
+}
+
+.action-button>mat-card-actions {
+    margin: 0px;
+}
+
+mat-card>span {
+    display: flex;
+}
+
+.ajustedButton {
+    width: 100px;
+    height: 80px;
+}
+
+.mat-button {
+    width: 100px;
+    height: 50px;
+}
+
+.title-image {
+    padding-top: 10px
+}
+
+.img-title-container {
+    display: flex;
+    max-width: 110px;
+}
+
+.card-content-image {
+    width: 106px;
+}
+
+.card-actions-image {
+    display: flex;
+    justify-content: center;
+}
+
+.title-link {
+    text-decoration: none;
+    color: black;
+}
+
+/* .correction-content > mat-card {
+    border: 2px solid red;
+}
+
+.correction-content h2 {
+    color: red;
+}
+.Ajustedbutton{
+    width: 100px;
+    height: 80px;
+
+} */
